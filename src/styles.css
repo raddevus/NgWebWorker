@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+.container {
+    width: 100%;
+    margin: auto;
+}
+#first {
+    width: 50%;
+    float:left;
+    height: 90%;
+    background-color: blue;
+    color: white;
+}
+#second {
+    width: 50%;
+    float:right;
+    height: 90%;
+    background-color: green;
+    color: white;
+}

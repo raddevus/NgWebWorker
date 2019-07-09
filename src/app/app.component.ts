@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'NgWebWorker';
+  
+  calcFibonacci(val){
+    alert("fib 0! " + val);
+  }
 }
+
