@@ -79,6 +79,7 @@ export class CircleComponent implements AfterViewInit {
     else{
       clearInterval(CircleComponent.IntervalHandle);
       CircleComponent.IntervalHandle = null;
+      this.initBoard();
     }
     
   }
