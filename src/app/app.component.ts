@@ -8,9 +8,17 @@ import { $ } from 'protractor';
 })
 export class AppComponent {
   title = 'NgWebWorker';
+  fibOutput : string = "test\nother\nmore\nitem\nitem 2\n";
+  fibCalcStartVal : number
   
-  calcFibonacci(val){
-    alert("fib 0! " + val);
+  longLoop(){
+    for (var x = 1; x <=1000000000;x++){
+      var y = x/3.2;
+      if ((x % 20000000) == 0){
+         this.fibOutput += x + "\n";
+         console.log(x);
+      }
+    }
   }
 }
 

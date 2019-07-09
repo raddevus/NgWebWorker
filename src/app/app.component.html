@@ -1,4 +1,6 @@
 <div id="first" >
-    test 1
-    <button (click)="calcFibonacci(3)">test</button>
+    <div><button (click)="longLoop()">test</button></div>
+    <div><input type="text" value="3" [(ngModel)]="fibCalcStartVal"/></div>
+    <div><textarea rows="50" [(ngModel)]="fibOutput"></textarea></div>
+    
 </div>

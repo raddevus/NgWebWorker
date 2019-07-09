@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,ViewChild, ElementRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { CircleComponent } from './circle/circle.component';
@@ -10,7 +11,8 @@ import { CircleComponent } from './circle/circle.component';
     CircleComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent, CircleComponent]
