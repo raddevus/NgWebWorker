@@ -6,64 +6,52 @@ import { ViewChild, Component, ElementRef, AfterViewInit } from '@angular/core';
   styleUrls: ['./circle.component.css']
 })
 export class CircleComponent implements AfterViewInit {
-  
-  ngOnInit(): void {
-    //throw new Error("Method not implemented.");
-  }
   title = 'NgWebWorker';
 
   static IntervalHandle = null;
 
   static ctx: CanvasRenderingContext2D;
-  LINES : number = 20;
+  GRID_LINES : number = 20;
   lineInterval : number = 0;
   gridColor : string = "lightgreen";
-  static CANVAS_SIZE : number = 650;
+  static CANVAS_SIZE : number = 400;
 
   @ViewChild('mainCanvas', {static: false})
   mainCanvas: ElementRef;
   
   constructor() { 
-    //this.initApp();
     console.log("ctor complete");
-    
    }
 
    ngAfterViewInit(): void {
-    console.log("in after view init");
     CircleComponent.ctx =   (<HTMLCanvasElement> this.mainCanvas.nativeElement).getContext('2d');
-    
     this.initApp();
     this.initBoard();
+    this.drawGrid();
+    this.toggleTimer();
   }
 
   initApp()
   {
-    //var theCanvas = document.getElementById("canvas");
-    //var ctx = theCanvas.getContext("2d");
-    
     CircleComponent.ctx.canvas.height  = CircleComponent.CANVAS_SIZE;
     CircleComponent.ctx.canvas.width = CircleComponent.ctx.canvas.height;
-
-    //window.addEventListener("mousedown", mouseDownHandler);
   }
  
   initBoard(){
     console.log("initBoard...");
-    this.lineInterval = Math.floor(CircleComponent.ctx.canvas.width / this.LINES);
+    this.lineInterval = 
+      Math.floor(CircleComponent.ctx.canvas.width / this.GRID_LINES);
     console.log(this.lineInterval);
-    this.draw();
   }
   
-  draw(){
-    console.log("draw...");
+  drawGrid(){
+    console.log("drawGrid...");
     CircleComponent.ctx.globalAlpha = 1;
     // fill the canvas background with white
     CircleComponent.ctx.fillStyle="white";
     CircleComponent.ctx.fillRect(0,0,CircleComponent.ctx.canvas.height,CircleComponent.ctx.canvas.width);
-    
-    // draw the blue grid background
-    for (var lineCount=0;lineCount<this.LINES;lineCount++)
+
+    for (var lineCount=0;lineCount<this.GRID_LINES;lineCount++)
     {
       CircleComponent.ctx.fillStyle=this.gridColor;
       CircleComponent.ctx.fillRect(0,this.lineInterval*(lineCount+1),CircleComponent.ctx.canvas.width,2);
@@ -71,17 +59,15 @@ export class CircleComponent implements AfterViewInit {
     }
   }
   
-  addPoint(){
-    // alert("done");
+  toggleTimer(){
     if (CircleComponent.IntervalHandle === null){
-      CircleComponent.IntervalHandle = setInterval(this.doDrawingWork,50);
+      CircleComponent.IntervalHandle = setInterval(this.drawRandomCircles,50);
     }
     else{
       clearInterval(CircleComponent.IntervalHandle);
       CircleComponent.IntervalHandle = null;
-      this.initBoard();
+      this.drawGrid();
     }
-    
   }
 
   static generateRandomPoints(){
@@ -90,7 +76,7 @@ export class CircleComponent implements AfterViewInit {
      return {x:X,y:Y};
   }
 
-  doDrawingWork(){
+  drawRandomCircles(){
     var p = CircleComponent.generateRandomPoints();
     CircleComponent.drawPoint(p);
   }
