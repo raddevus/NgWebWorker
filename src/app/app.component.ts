@@ -9,43 +9,23 @@ import { $ } from 'protractor';
 export class AppComponent {
   title = 'NgWebWorker';
   longProcessOutput : string = "Long\nprocess\noutput\nwill\nappear\nhere\n";
-  fibCalcStartVal : number
-  
+  worker : any;
+
   constructor(){
     if (typeof Worker !== 'undefined') {
-      // Create a new
-      const worker = new Worker('./app.worker', { type: 'module' });
-      worker.onmessage = ({ data }) => {
-        this.longProcessOutput += `page got message: ${data}` + "\n";
+      this.worker = new Worker('./app.worker', { type: 'module' });
+      this.worker.onmessage = ({ data }) => {
+        this.longProcessOutput += `${data}` + "\n";
       };
-      worker.postMessage('hello');
     } else {
-      // Web Workers are not supported in this environment.
-      // You should add a fallback so that your program still executes correctly.
+      console.log("Web Workers are not supported by your browser");
     }
   }
 
   longLoop(){
     this.longProcessOutput = "";
-    for (var x = 1; x <=1000000000;x++){
-      var y = x/3.2;
-      if ((x % 20000000) == 0){
-         this.longProcessOutput += x + "\n";
-         console.log(x);
-      }
-    }
+    // the following line starts the long process on the Web Worker
+    // by sending a message to the Web Worker
+    this.worker.postMessage("start looping...");
   }
-}
-
-
-if (typeof Worker !== 'undefined') {
-  // Create a new
-  const worker = new Worker('./app.worker', { type: 'module' });
-  worker.onmessage = ({ data }) => {
-    console.log(`page got message: ${data}`);
-  };
-  worker.postMessage('hello');
-} else {
-  // Web Workers are not supported in this environment.
-  // You should add a fallback so that your program still executes correctly.
 }
