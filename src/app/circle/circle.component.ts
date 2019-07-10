@@ -61,7 +61,7 @@ export class CircleComponent implements AfterViewInit {
   
   toggleTimer(){
     if (CircleComponent.IntervalHandle === null){
-      CircleComponent.IntervalHandle = setInterval(this.drawRandomCircles,50);
+      CircleComponent.IntervalHandle = setInterval(this.drawRandomCircles,100);
     }
     else{
       clearInterval(CircleComponent.IntervalHandle);
