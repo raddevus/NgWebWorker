@@ -8,15 +8,15 @@ import { $ } from 'protractor';
 })
 export class AppComponent {
   title = 'NgWebWorker';
-  fibOutput : string = "test\nother\nmore\nitem\nitem 2\n";
+  longProcessOutput : string = "Long\nprocess\noutput\nwill\nappear\nhere\n";
   fibCalcStartVal : number
   
   longLoop(){
-    this.fibOutput = "";
+    this.longProcessOutput = "";
     for (var x = 1; x <=1000000000;x++){
       var y = x/3.2;
       if ((x % 20000000) == 0){
-         this.fibOutput += x + "\n";
+         this.longProcessOutput += x + "\n";
          console.log(x);
       }
     }
